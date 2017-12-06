@@ -13,18 +13,18 @@ import { connectedReduxRedirect } from 'redux-auth-wrapper/history3/redirect'
 import App from 'containers/App'
 import appComponents from './routeAsyncComponents'
 import { loginRequest } from 'auth/actions'
+import { makeSelectIsAuthenticated } from 'auth/selectors'
 
 const userIsAuthenticated = connectedReduxRedirect({
   // URL to redirect user to if they are not authenticated
   redirectPath: '/',
   // Determine if the user is authenticted or not
-  authenticatedSelector: state => state.get('auth').toJS().idToken !== null,
+  authenticatedSelector: makeSelectIsAuthenticated(),
   // Display name for this check
   wrapperDisplayName: 'UserIsAuthenticated',
   // Call LOGIN_REQUEST on redirect
   redirectAction: loginRequest
 })
-// component: userIsAuthenticated(components.Dashboard)
 
 const RouteConfig = (props) => {
   // Get async components for routing
