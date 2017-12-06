@@ -22,10 +22,16 @@ const makeSelectError = () => createSelector(
   (authState) => authState.get('error')
 )
 
+const makeSelectIsAuthenticated = () => createSelector(
+  selectAuth,
+  (authState) => authState.get('isAuthenticated')
+)
+
 export {
   selectAuth,
   makeSelectIsLoggingIn,
   makeSelectIdToken,
   makeSelectProfile,
-  makeSelectError
+  makeSelectError,
+  makeSelectIsAuthenticated
 }

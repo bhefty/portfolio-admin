@@ -16,7 +16,8 @@ describe('authReducer', () => {
       isLoggingIn: false,
       idToken: null,
       profile: null,
-      error: null
+      error: null,
+      isAuthenticated: false
     })
   })
 
@@ -42,6 +43,7 @@ describe('authReducer', () => {
       .set('isLoggingIn', false)
       .set('idToken', fixture.idToken)
       .set('profile', fixture.profile)
+      .set('isAuthenticated', true)
     expect(authReducer(state, loginSuccess(fixture.profile, fixture.idToken))).toEqual(expectedResult)
   })
 
@@ -52,6 +54,7 @@ describe('authReducer', () => {
       .set('idToken', null)
       .set('profile', null)
       .set('error', fixture)
+      .set('isAuthenticated', false)
     expect(authReducer(state, loginFailure(fixture))).toEqual(expectedResult)
   })
 

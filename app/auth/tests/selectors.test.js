@@ -5,7 +5,8 @@ import {
   makeSelectIsLoggingIn,
   makeSelectIdToken,
   makeSelectProfile,
-  makeSelectError
+  makeSelectError,
+  makeSelectIsAuthenticated
 } from '../selectors'
 
 describe('selectAuth', () => {
@@ -74,5 +75,18 @@ describe('makeSelectError', () => {
       }
     })
     expect(errorSelector(mockedState)).toEqual(error)
+  })
+})
+
+describe('makeSelectIsAuthenticated', () => {
+  const isAuthenticatedSelector = makeSelectIsAuthenticated()
+  it('should select isAuthenticated', () => {
+    const isAuthenticated = true
+    const mockedState = fromJS({
+      auth: {
+        isAuthenticated
+      }
+    })
+    expect(isAuthenticatedSelector(mockedState)).toEqual(isAuthenticated)
   })
 })
