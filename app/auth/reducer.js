@@ -9,20 +9,15 @@ import {
   LOGOUT
 } from './constants'
 
-// Get values of idToken and profile if they are stored
-// in localStorage, else set to null. This will allow
-// user to stay logged in if the session has not expired.
-const { idToken, profile } = getStoredAuthState()
-let isAuthenticated
-if (idToken || profile) {
-  isAuthenticated = true
-} else {
-  isAuthenticated = false
-}
+// Get any localStorage values to restore user authentication
+// if they did not logout before time expires
+const { isAuthenticated, profile } = getStoredAuthState()
 
 const initialState = fromJS({
   isLoggingIn: false,
-  idToken,
+  accessToken: null,
+  idToken: null,
+  expiresIn: null,
   profile,
   error: null,
   isAuthenticated
@@ -36,13 +31,17 @@ function authReducer (state = initialState, action) {
     case LOGIN_SUCCESS:
       return state
         .set('isLoggingIn', false)
+        .set('accessToken', action.accessToken)
         .set('idToken', action.idToken)
+        .set('expiresIn', action.expiresIn)
         .set('profile', action.profile)
         .set('isAuthenticated', true)
     case LOGIN_FAILURE:
       return state
         .set('isLoggingIn', false)
+        .set('accessToken', null)
         .set('idToken', null)
+        .set('expiresIn', null)
         .set('profile', null)
         .set('error', action.error)
         .set('isAuthenticated', false)

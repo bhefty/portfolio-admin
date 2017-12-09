@@ -15,18 +15,25 @@ import {
 import { loginSuccess, loginFailure } from './actions'
 
 // Ignore since Auth0 handles tests, maybe add some unit tests in future
-/* istanbul ignore next */
 export function * loginRequestSaga () {
-  /* istanbul ignore next */
   const lock = new Auth0Lock(
     process.env.AUTH0_CLIENT_ID,
     process.env.AUTH0_DOMAIN,
     {
-      auth: { redirect: false },
+      oidcConformant: true,
+      authclose: true,
+      auth: {
+        redirectUrl: process.env.AUTH0_CALLBACK_URL,
+        responseType: 'token id_token',
+        audience: `https://${process.env.AUTH0_DOMAIN}/userinfo`,
+        params: {
+          scope: 'openid'
+        }
+      },
       languageDictionary: { title: 'Portfolio Admin' }
     }
   )
-  /* istanbul ignore next */
+
   const showLock = () => {
     return new Promise((resolve, reject) => { // eslint-disable-line no-new
       lock.on('hide', () => reject('Lock closed')) // eslint-disable-line prefer-promise-reject-errors
@@ -34,25 +41,13 @@ export function * loginRequestSaga () {
       lock.on('authenticated', (authResult) => {
         lock.getUserInfo(authResult.accessToken, (error, profile) => {
           if (!error) {
-            console.log('Logged in successfully:', profile)
             lock.hide()
-            resolve({ profile, idToken: authResult.idToken })
-            // const requestURL = '/api/user/register'
-            // const requestOptions = {
-            //   method: 'PUT',
-            //   headers: { 'content-type': 'application/json' },
-            //   body: JSON.stringify(profile)
-            // }
-            // try {
-            //   // Call request helper ('utils/request')
-            //   request(requestURL, requestOptions)
-            //     .then(() => {
-            //       lock.hide()
-            //       resolve({ profile, idToken: authResult.idToken })
-            //     })
-            // } catch (err) {
-            //   console.log('Error in registering user:', err)
-            // }
+            const {
+              accessToken,
+              idToken,
+              expiresIn
+            } = authResult
+            resolve({ profile, accessToken, idToken, expiresIn })
           } else {
             console.log('ERROR logging in:', error)
           }
@@ -68,20 +63,15 @@ export function * loginRequestSaga () {
       lock.show()
     })
   }
-  /* istanbul ignore next */
-  try {
-    console.log('trying')
-    const { profile, idToken } = yield call(showLock)
 
-    yield put(loginSuccess(profile, idToken))
-    console.log('login success?')
-    yield put(push('/'))
-    console.log('push /')
+  try {
+    const { profile, accessToken, idToken, expiresIn } = yield call(showLock)
+    console.log('login successful')
+    yield put(loginSuccess(profile, accessToken, idToken, expiresIn))
+    yield put(push('/dashboard'))
   } catch (error) {
     yield put(loginFailure(error))
-    console.log('login error failure:', error)
-    yield put(put('/login'))
-    console.log('push /login')
+    yield put(put('/'))
   }
 }
 
@@ -94,16 +84,15 @@ export function * watchLoginRequest () {
 
 export function * watchLoginSuccess () {
   while (true) {
-    const { profile, idToken } = yield take(LOGIN_SUCCESS)
-    /* istanbul ignore next */
-    setStoredAuthState(profile, idToken)
+    const { profile, accessToken, idToken, expiresIn } = yield take(LOGIN_SUCCESS)
+    setStoredAuthState(profile, accessToken, idToken, expiresIn)
   }
 }
 
 export function * watchLoginFailure () {
   while (true) {
     yield take(LOGIN_FAILURE)
-    /* istanbul ignore next */
+    console.log('Failed????')
     removeStoredAuthState()
   }
 }
@@ -111,7 +100,6 @@ export function * watchLoginFailure () {
 export function * watchLogout () {
   while (true) {
     yield take(LOGOUT)
-    /* istanbul ignore next */
     removeStoredAuthState()
 
     yield put(push('/'))

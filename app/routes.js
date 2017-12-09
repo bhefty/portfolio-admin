@@ -39,12 +39,21 @@ const RouteConfig = (props) => {
 
   // Define route paths
   const routes = [{
-    exact: true,
     path: '/',
-    component: userIsAuthenticated(components.HomePage)
+    exact: true,
+    component: components.HomePage
+  }, {
+    path: '/dashboard',
+    component: userIsAuthenticated(components.DashboardPage)
+  }, {
+    path: '/blog',
+    component: userIsAuthenticated(components.BlogPage)
+  }, {
+    path: '/callback',
+    component: userIsAuthenticated(components.CallbackPage)
   }, {
     path: '*',
-    component: userIsAuthenticated(components.NotFoundPage)
+    component: components.NotFoundPage
   }]
 
   // Return the configured Router
