@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Admin CMS for portfolio",
   "main": "index.js",
+  "engines": {
+    "npm": ">=5",
+    "node": ">=8"
+  },
   "scripts": {
     "start": "cross-env NODE_ENV=development node server",
     "pretest": "npm run lint",
