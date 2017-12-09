@@ -11,11 +11,13 @@ export function loginRequest () {
   }
 }
 
-export function loginSuccess (profile, idToken) {
+export function loginSuccess (profile, accessToken, idToken, expiresIn) {
   return {
     type: LOGIN_SUCCESS,
     profile,
-    idToken
+    accessToken,
+    idToken,
+    expiresIn
   }
 }
 
