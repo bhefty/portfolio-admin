@@ -16,10 +16,10 @@ export class App extends React.PureComponent {
   render () {
     return (
       <div>
-        <h3>Nav here</h3>
-        {this.props.isAuthenticated
-        ? <button onClick={this.props.logout}>Logout</button>
-        : <button onClick={this.props.login}>Login</button>
+        {this.props.location.pathname !== '/' &&
+          <div>
+            <h3>Nav here</h3>
+          </div>
         }
         {React.Children.toArray(this.props.children)}
       </div>
