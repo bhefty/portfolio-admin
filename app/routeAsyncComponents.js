@@ -11,6 +11,15 @@ function appComponents (store) {
     HomePage: asyncComponent({
       component: () => import('containers/HomePage')
     }),
+    DashboardPage: asyncComponent({
+      component: () => import('containers/DashboardPage')
+    }),
+    BlogPage: asyncComponent({
+      component: () => import('containers/BlogPage')
+    }),
+    CallbackPage: asyncComponent({
+      component: () => import('containers/CallbackPage')
+    }),
     NotFoundPage: asyncComponent({
       component: () => import('containers/NotFoundPage')
     })
