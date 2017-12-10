@@ -132,6 +132,7 @@
     "lint-staged": "^5.0.0",
     "loader-utils": "^1.1.0",
     "localStorage": "^1.0.3",
+    "mockdate": "^2.0.2",
     "ngrok": "^2.2.23",
     "node-sass": "^4.7.2",
     "null-loader": "^0.1.1",
