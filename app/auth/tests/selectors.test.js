@@ -3,7 +3,9 @@ import { fromJS } from 'immutable'
 import {
   selectAuth,
   makeSelectIsLoggingIn,
+  makeSelectAccessToken,
   makeSelectIdToken,
+  makeSelectExpiresIn,
   makeSelectProfile,
   makeSelectError,
   makeSelectIsAuthenticated
@@ -13,7 +15,9 @@ describe('selectAuth', () => {
   it('should select the auth state', () => {
     const authState = fromJS({
       isLoggingIn: false,
+      accessToken: null,
       idToken: null,
+      expiresIn: null,
       profile: null,
       error: null
     })
@@ -36,6 +40,19 @@ describe('makeSelectIsLoggingIn', () => {
   })
 })
 
+describe('makeSelectAccessToken', () => {
+  const accessTokenSelector = makeSelectAccessToken()
+  it('should select accessToken', () => {
+    const accessToken = '123abc456'
+    const mockedState = fromJS({
+      auth: {
+        accessToken
+      }
+    })
+    expect(accessTokenSelector(mockedState)).toEqual(accessToken)
+  })
+})
+
 describe('makeSelectIdToken', () => {
   const idTokenSelector = makeSelectIdToken()
   it('should select idToken', () => {
@@ -46,6 +63,19 @@ describe('makeSelectIdToken', () => {
       }
     })
     expect(idTokenSelector(mockedState)).toEqual(idToken)
+  })
+})
+
+describe('makeSelectExpiresIn', () => {
+  const expiresInSelector = makeSelectExpiresIn()
+  it('should select expiresIn', () => {
+    const expiresIn = 7200
+    const mockedState = fromJS({
+      auth: {
+        expiresIn
+      }
+    })
+    expect(expiresInSelector(mockedState)).toEqual(expiresIn)
   })
 })
 

@@ -7,9 +7,19 @@ const makeSelectIsLoggingIn = () => createSelector(
   (authState) => authState.get('isLoggingIn')
 )
 
+const makeSelectAccessToken = () => createSelector(
+  selectAuth,
+  (authState) => authState.get('accessToken')
+)
+
 const makeSelectIdToken = () => createSelector(
   selectAuth,
   (authState) => authState.get('idToken')
+)
+
+const makeSelectExpiresIn = () => createSelector(
+  selectAuth,
+  (authState) => authState.get('expiresIn')
 )
 
 const makeSelectProfile = () => createSelector(
@@ -30,7 +40,9 @@ const makeSelectIsAuthenticated = () => createSelector(
 export {
   selectAuth,
   makeSelectIsLoggingIn,
+  makeSelectAccessToken,
   makeSelectIdToken,
+  makeSelectExpiresIn,
   makeSelectProfile,
   makeSelectError,
   makeSelectIsAuthenticated
