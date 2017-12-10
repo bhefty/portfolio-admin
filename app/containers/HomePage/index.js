@@ -12,11 +12,14 @@ export class HomePage extends React.Component {
   render () {
     return (
       <Wrapper>
-        <h1>Home</h1>
-        {!this.props.isAuthenticated
-          ? <button onClick={this.props.login}>Login</button>
-          : <Link to='/dashboard'>Dashboard</Link>
-        }
+        <div className='center-content'>
+          <h1 className='header'>bh</h1>
+          <p className='sub-heading'>ADMIN</p>
+          {!this.props.isAuthenticated
+            ? <button onClick={this.props.login} className='btn-home'>Login</button>
+            : <button className='btn-home'><Link to='/dashboard'>Enter</Link></button>
+          }
+        </div>
       </Wrapper>
     )
   }
