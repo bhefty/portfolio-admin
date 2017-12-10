@@ -29,14 +29,18 @@ describe('Auth Actions', () => {
           email: 'test@ex.com',
           name: 'Bill Test'
         },
-        idToken: 'abc123ABC321'
+        accessToken: '123abc',
+        idToken: 'abc123ABC321',
+        expiresIn: 7200
       }
       const expectedResult = {
         type: LOGIN_SUCCESS,
         profile: fixture.profile,
-        idToken: fixture.idToken
+        accessToken: fixture.accessToken,
+        idToken: fixture.idToken,
+        expiresIn: fixture.expiresIn
       }
-      expect(loginSuccess(fixture.profile, fixture.idToken)).toEqual(expectedResult)
+      expect(loginSuccess(fixture.profile, fixture.accessToken, fixture.idToken, fixture.expiresIn)).toEqual(expectedResult)
     })
   })
 
