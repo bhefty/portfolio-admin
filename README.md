@@ -8,6 +8,6 @@
 <div align='center'>
   <!-- Build status -->
   <a href='https://circleci.com/gh/bhefty/portfolio-admin' target='_blank'>
-    <img src='https://circleci.com/gh/bhefty/portfolio-admin.svg?style=svg' alt='Build Status' />
+    <img src='https://circleci.com/gh/bhefty/portfolio-admin.svg?style=shield' alt='Build Status' />
   </a>
 </div>
