@@ -31,9 +31,7 @@ export const removeStoredAuthState = () => {
 export const getStoredAuthState = () => {
   try {
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'))
-    console.log('Expires at:', expiresAt)
     const isAuthenticated = new Date().getTime() < expiresAt
-    console.log('isAuthed', isAuthenticated)
     const profile = JSON.parse(localStorage.getItem(PROFILE))
 
     return { isAuthenticated, profile }
