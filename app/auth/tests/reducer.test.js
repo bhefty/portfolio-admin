@@ -14,7 +14,9 @@ describe('authReducer', () => {
   beforeEach(() => {
     state = fromJS({
       isLoggingIn: false,
+      accessToken: null,
       idToken: null,
+      expiresIn: null,
       profile: null,
       error: null,
       isAuthenticated: false
@@ -37,21 +39,27 @@ describe('authReducer', () => {
         email: 'test@ex.com',
         name: 'Bill Test'
       },
-      idToken: 'abc123ABC321'
+      accessToken: '123abc',
+      idToken: 'abc123ABC321',
+      expiresIn: 7200
     }
     const expectedResult = state
       .set('isLoggingIn', false)
+      .set('accessToken', fixture.accessToken)
       .set('idToken', fixture.idToken)
+      .set('expiresIn', fixture.expiresIn)
       .set('profile', fixture.profile)
       .set('isAuthenticated', true)
-    expect(authReducer(state, loginSuccess(fixture.profile, fixture.idToken))).toEqual(expectedResult)
+    expect(authReducer(state, loginSuccess(fixture.profile, fixture.accessToken, fixture.idToken, fixture.expiresIn))).toEqual(expectedResult)
   })
 
   it('should handle the loginFailure action correctly', () => {
     const fixture = 'Error occurred'
     const expectedResult = state
       .set('isLoggingIn', false)
+      .set('accessToken', null)
       .set('idToken', null)
+      .set('expiresIn', null)
       .set('profile', null)
       .set('error', fixture)
       .set('isAuthenticated', false)
