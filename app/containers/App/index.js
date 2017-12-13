@@ -7,6 +7,11 @@ import { createStructuredSelector } from 'reselect'
 import { loginRequest, logout } from 'auth/actions'
 import { makeSelectIsAuthenticated } from 'auth/selectors'
 
+import TopNav from 'components/TopNav'
+import SideNav from 'components/SideNav'
+
+import AppWrapper from './AppWrapper'
+
 export class App extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
@@ -14,16 +19,22 @@ export class App extends React.PureComponent {
   }
 
   render () {
-    return (
-      <div>
-        {this.props.location.pathname !== '/' &&
-          <div>
-            <h3>Nav here</h3>
-          </div>
-        }
-        {React.Children.toArray(this.props.children)}
-      </div>
-    )
+    if (this.props.location.pathname === '/') {
+      return React.Children.toArray(this.props.children)
+    } else {
+      return (
+        <AppWrapper>
+          <section id='page'>
+            <TopNav id='nav-top' />
+            <SideNav id='nav-side' />
+            <main id='main-content'>
+              {React.Children.toArray(this.props.children)}
+            </main>
+            <footer>Footer</footer>
+          </section>
+        </AppWrapper>
+      )
+    }
   }
 }
 
