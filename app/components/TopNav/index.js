@@ -14,7 +14,7 @@ const TopNav = ({ id }) => {
 }
 
 TopNav.propTypes = {
-
+  id: PropTypes.string.isRequired
 }
 
 export default TopNav

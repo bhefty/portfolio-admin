@@ -15,7 +15,7 @@ const SideNav = ({ id }) => {
 }
 
 SideNav.propTypes = {
-
+  id: PropTypes.string.isRequired
 }
 
 export default SideNav
