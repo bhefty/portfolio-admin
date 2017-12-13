@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export default styled.div`
+  background-color: #3D3F47;
   color: #f4f4f4;
   display: grid;
   height: 100vh;
