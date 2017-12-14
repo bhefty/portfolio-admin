@@ -7,8 +7,12 @@ import TopNavWrapper from './TopNavWrapper'
 const TopNav = ({ id }) => {
   return (
     <TopNavWrapper id={id}>
-      <Link to='/'>Portfolio Admin</Link>
-      <button onClick={() => console.log('TODO: Logout function')}>Logout</button>
+      <div className='brand'>
+        <Link to='/'>Portfolio Admin</Link>
+      </div>
+      <div className='btn-logout'>
+        <button onClick={() => console.log('TODO: Logout function')}>Logout</button>
+      </div>
     </TopNavWrapper>
   )
 }
