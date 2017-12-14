@@ -14,21 +14,17 @@ export default styled.div`
 
     #main-content {
       grid-area: main;
-      background-color: yellow;
     }
   
     #nav-side {
-      background-color: lightblue;
       grid-area: nav;
     }
   
     #nav-top {
-      background-color: blue;
       grid-area: head;
     }
   
     footer {
-      background-color: red;
       grid-area: foot;
     }
   }
