@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 import TopNavWrapper from './TopNavWrapper'
+import LockIcon from 'components/LockIcon'
 
 const TopNav = ({ id }) => {
   return (
@@ -11,7 +12,7 @@ const TopNav = ({ id }) => {
         <Link to='/'>Portfolio Admin</Link>
       </div>
       <div className='btn-logout'>
-        <button onClick={() => console.log('TODO: Logout function')}>Logout</button>
+        <button onClick={() => console.log('TODO: Logout function')}><LockIcon /><span className='btn-text'>Logout</span></button>
       </div>
     </TopNavWrapper>
   )
