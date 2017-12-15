@@ -4,7 +4,7 @@ export default styled.div`
   #page {
     display: grid;
     width: 100%;
-    height: 200px;
+    min-height: 100vh;
     
     grid-template:
       [header-left] "head head" 56px [header-right]
@@ -14,6 +14,7 @@ export default styled.div`
 
     #main-content {
       grid-area: main;
+      margin: 0 1em 1em 1em;
     }
   
     #nav-side {
