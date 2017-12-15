@@ -9,6 +9,7 @@ import { makeSelectIsAuthenticated } from 'auth/selectors'
 
 import TopNav from 'components/TopNav'
 import SideNav from 'components/SideNav'
+import Footer from 'components/Footer'
 
 import AppWrapper from './AppWrapper'
 
@@ -30,7 +31,7 @@ export class App extends React.PureComponent {
             <main id='main-content'>
               {React.Children.toArray(this.props.children)}
             </main>
-            <footer>Footer</footer>
+            <Footer />
           </section>
         </AppWrapper>
       )
