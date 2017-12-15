@@ -3,13 +3,16 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 import SideNavWrapper from './SideNavWrapper'
+import HomeIcon from 'components/HomeIcon'
+import BlogIcon from 'components/BlogIcon'
+import ProjectsIcon from 'components/ProjectsIcon'
 
 const SideNav = ({ id }) => {
   return (
     <SideNavWrapper id={id}>
-      <Link to='/dashboard'>Dashboard</Link>
-      <Link to='/blog'>Blog Posts</Link>
-      <Link to='/projects'>Projects</Link>
+      <Link to='/dashboard'><HomeIcon /> Dashboard</Link>
+      <Link to='/blog'><BlogIcon /> Blog Posts</Link>
+      <Link to='/projects'><ProjectsIcon /> Projects</Link>
     </SideNavWrapper>
   )
 }

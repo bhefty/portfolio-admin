@@ -7,12 +7,17 @@ export default styled.nav`
 
   a {
     margin: auto 0 auto 1em;
-    font-size: 1.25em;
+    font-size: 1em;
     text-decoration: none;
     color: #828282;
 
     &:active, &:hover {
       color: #ccc;
     }
+  }
+
+  svg {
+    height: 1.5em;
+    margin: 0 0.5em 0 0;
   }
 `
