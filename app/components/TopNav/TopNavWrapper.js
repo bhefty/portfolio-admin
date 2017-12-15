@@ -8,17 +8,20 @@ export default styled.nav`
   .brand {
     margin: auto 0 auto 0.5em;
     font-size: 1.5em;
+    a {
+      color: #fff;
+    }
   }
 
   .btn-logout {
-    font-size: 1em;
+    font-size: 1.25em;
     margin: auto 0;
     text-align: center;
+    color: #828282;
   }
 
   a, button {
     text-decoration: none;
-    color: #fff;
     border: none;
 
     &:active, &:hover {

@@ -2,10 +2,14 @@ import styled from 'styled-components'
 
 export default styled.nav`
   background-color: #3D3F47;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, 2.5em);
+
   a {
-    font-size: 1.5em;
+    margin: auto 0 auto 1em;
+    font-size: 1.25em;
     text-decoration: none;
-    color: #fff;
+    color: #828282;
 
     &:active, &:hover {
       color: #ccc;
