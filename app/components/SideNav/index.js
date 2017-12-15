@@ -10,9 +10,9 @@ import ProjectsIcon from 'components/ProjectsIcon'
 const SideNav = ({ id }) => {
   return (
     <SideNavWrapper id={id}>
-      <Link to='/dashboard'><HomeIcon /> Dashboard</Link>
-      <Link to='/blog'><BlogIcon /> Blog Posts</Link>
-      <Link to='/projects'><ProjectsIcon /> Projects</Link>
+      <Link to='/dashboard'><HomeIcon /><span className='nav-text'>Dashboard</span></Link>
+      <Link to='/blog'><BlogIcon /><span className='nav-text'>Blog Posts</span></Link>
+      <Link to='/projects'><ProjectsIcon /><span className='nav-text'>Projects</span></Link>
     </SideNavWrapper>
   )
 }
