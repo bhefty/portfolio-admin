@@ -22,7 +22,7 @@ export default styled.div`
 
     #main-content {
       grid-area: main;
-      margin: 0 1em 1em 1em;
+      margin: 1em;
     }
   
     #nav-side {
