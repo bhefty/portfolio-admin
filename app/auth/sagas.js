@@ -71,7 +71,7 @@ export function * loginRequestSaga () {
     yield put(push('/dashboard'))
   } catch (error) {
     yield put(loginFailure(error))
-    yield put(put('/'))
+    yield put(push('/'))
   }
 }
 
