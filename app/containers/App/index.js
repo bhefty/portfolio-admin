@@ -26,7 +26,7 @@ export class App extends React.PureComponent {
       return (
         <AppWrapper>
           <section id='page'>
-            <TopNav id='nav-top' />
+            <TopNav id='nav-top' logout={this.props.logout} />
             <SideNav id='nav-side' />
             <main id='main-content'>
               {React.Children.toArray(this.props.children)}
