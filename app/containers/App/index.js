@@ -20,7 +20,7 @@ export class App extends React.PureComponent {
   }
 
   render () {
-    if (this.props.location.pathname === '/') {
+    if (this.props.location.pathname === '/' || !this.props.isAuthenticated) {
       return React.Children.toArray(this.props.children)
     } else {
       return (
