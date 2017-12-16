@@ -66,7 +66,6 @@ export function * loginRequestSaga () {
 
   try {
     const { profile, accessToken, idToken, expiresIn } = yield call(showLock)
-    console.log('login successful')
     yield put(loginSuccess(profile, accessToken, idToken, expiresIn))
     yield put(push('/dashboard'))
   } catch (error) {
@@ -92,7 +91,6 @@ export function * watchLoginSuccess () {
 export function * watchLoginFailure () {
   while (true) {
     yield take(LOGIN_FAILURE)
-    console.log('Failed????')
     removeStoredAuthState()
   }
 }
