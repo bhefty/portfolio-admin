@@ -17,9 +17,6 @@ function appComponents (store) {
     BlogPage: asyncComponent({
       component: () => import('containers/BlogPage')
     }),
-    CallbackPage: asyncComponent({
-      component: () => import('containers/CallbackPage')
-    }),
     NotFoundPage: asyncComponent({
       component: () => import('containers/NotFoundPage')
     })

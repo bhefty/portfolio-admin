@@ -11,6 +11,7 @@ import { Route, Switch } from 'react-router-dom'
 import { connectedReduxRedirect } from 'redux-auth-wrapper/history3/redirect'
 
 import App from 'containers/App'
+import CallbackPage from 'containers/CallbackPage'
 import appComponents from './routeAsyncComponents'
 import { loginRequest } from 'auth/actions'
 import { makeSelectIsAuthenticated } from 'auth/selectors'
@@ -50,7 +51,7 @@ const RouteConfig = (props) => {
     component: userIsAuthenticated(components.BlogPage)
   }, {
     path: '/callback',
-    component: userIsAuthenticated(components.CallbackPage)
+    component: userIsAuthenticated(CallbackPage)
   }, {
     path: '*',
     component: components.NotFoundPage
