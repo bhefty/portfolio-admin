@@ -35,6 +35,7 @@ function authReducer (state = initialState, action) {
         .set('idToken', action.idToken)
         .set('expiresIn', action.expiresIn)
         .set('profile', action.profile)
+        .set('error', null)
         .set('isAuthenticated', true)
     case LOGIN_FAILURE:
       return state

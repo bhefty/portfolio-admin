@@ -49,6 +49,7 @@ describe('authReducer', () => {
       .set('idToken', fixture.idToken)
       .set('expiresIn', fixture.expiresIn)
       .set('profile', fixture.profile)
+      .set('error', null)
       .set('isAuthenticated', true)
     expect(authReducer(state, loginSuccess(fixture.profile, fixture.accessToken, fixture.idToken, fixture.expiresIn))).toEqual(expectedResult)
   })
