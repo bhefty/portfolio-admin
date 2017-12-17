@@ -16,7 +16,7 @@ const Button = styled.button`
   }
 `
 
-const componentName = ({ add, link }) => {
+const AddNewButton = ({ add, link }) => {
   return (
     <Link to={link}>
       <Button>
@@ -26,9 +26,9 @@ const componentName = ({ add, link }) => {
   )
 }
 
-componentName.propTypes = {
+AddNewButton.propTypes = {
   add: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired
 }
 
-export default componentName
+export default AddNewButton
