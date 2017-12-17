@@ -33,6 +33,12 @@ export default styled.div`
     margin: auto 1em;
   }
 
+  .action-btn-date {
+    font-size: 0.75em;
+    margin-top: 0.75em;
+    color: rgba(255, 255, 255, .7);
+  }
+
   .action-btn-icon {
     width: 90%;
     grid-area: icon;
