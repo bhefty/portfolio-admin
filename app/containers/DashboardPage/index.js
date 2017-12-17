@@ -1,6 +1,9 @@
 import React from 'react'
 
 import BreadCrumb from 'components/BreadCrumb'
+import ActionButton from 'components/ActionButton'
+
+import Wrapper from './Wrapper'
 
 const crumbTrail = [{
   page: 'Dashboard',
@@ -15,7 +18,12 @@ export class DashboardPage extends React.Component {
           trail={crumbTrail}
           currentPage='My Dashboard'
         />
-        <h2>DashboardPage</h2>
+        <br />
+        <Wrapper>
+          <ActionButton route='/blog' buttonType='blog' />
+          <ActionButton route='/projects' buttonType='project' />
+        </Wrapper>
+
       </div>
     )
   }
