@@ -48,14 +48,6 @@ export default styled.div`
       padding: 0.5em 0 0 0;
     }
 
-    .btn-markdown {
-      color: #2F80ED;
-      font-size: 0.75em;
-      cursor: pointer;
-      text-align: right;
-      float: right;
-    }
-
     .dropzone {
       margin: .5em 0 1em 0;
       border: 1px dashed #ccc;
