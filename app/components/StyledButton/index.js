@@ -4,8 +4,8 @@ export default styled.div`
   --blog-primary: 67, 140, 238;
   --blog-secondary: 32, 89, 165;
   
-  --project-primary: 55, 160, 100;
-  --project-secondary: 23, 105, 58;
+  --project-primary: 17, 130, 136;
+  --project-secondary: 13, 97, 101;
 
   --color-primary: ${props => {
     if (props.type === 'blog') return 'var(--blog-primary)'

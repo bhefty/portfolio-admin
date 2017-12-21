@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 
 import BreadCrumb from 'components/BreadCrumb'
-import StyledEditor from 'components/StyledEditor'
 import EditorImagePreview from 'components/EditorImagePreview'
+import EditorWrapper from './EditorWrapper'
 
 const crumbTrail = [{
   page: 'Dashboard',
@@ -61,7 +61,7 @@ export default class EditPost extends Component {
           currentPage={headerText}
         />
         <br />
-        <StyledEditor>
+        <EditorWrapper>
           <header>
             <div>{headerText}</div>
           </header>
@@ -93,7 +93,7 @@ export default class EditPost extends Component {
               <div className='btn-delete' onClick={() => console.log('TODO: DELETE POST CONFIRMATION!')}>Delete Post</div>
             }
           </form>
-        </StyledEditor>
+        </EditorWrapper>
       </div>
     )
   }

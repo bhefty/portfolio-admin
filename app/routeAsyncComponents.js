@@ -20,6 +20,12 @@ function appComponents (store) {
     EditPost: asyncComponent({
       component: () => import('containers/EditPost')
     }),
+    ProjectPage: asyncComponent({
+      component: () => import('containers/ProjectPage')
+    }),
+    EditProject: asyncComponent({
+      component: () => import('containers/EditProject')
+    }),
     NotFoundPage: asyncComponent({
       component: () => import('containers/NotFoundPage')
     })
