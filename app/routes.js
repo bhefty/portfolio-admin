@@ -54,6 +54,13 @@ const RouteConfig = (props) => {
     path: '/blog/edit/:id',
     component: userIsAuthenticated(components.EditPost)
   }, {
+    path: '/projects',
+    exact: true,
+    component: userIsAuthenticated(components.ProjectPage)
+  }, {
+    path: '/projects/edit/:id',
+    component: userIsAuthenticated(components.EditProject)
+  }, {
     path: '/callback',
     component: userIsAuthenticated(CallbackPage)
   }, {
