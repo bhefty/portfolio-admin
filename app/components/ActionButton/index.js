@@ -11,16 +11,16 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `
 
-const ActionButton = ({ buttonType, route }) => {
+const ActionButton = ({ buttonType, route, date, title }) => {
   let buttonIcon
   let titleText
 
   if (buttonType === 'blog') {
     buttonIcon = <BlogIcon />
-    titleText = '# Blog Posts'
+    titleText = title || '# Blog Posts'
   } else if (buttonType === 'project') {
     buttonIcon = <ProjectsIcon />
-    titleText = '# Projects'
+    titleText = title || '# Projects'
   }
 
   return (
@@ -28,6 +28,11 @@ const ActionButton = ({ buttonType, route }) => {
       <StyledButton type={buttonType}>
         <div className='action-btn-count'>
           {titleText}
+          {date &&
+            <div className='action-btn-date'>
+              {date}
+            </div>
+          }
         </div>
         <div className='action-btn-icon'>
           {buttonIcon}

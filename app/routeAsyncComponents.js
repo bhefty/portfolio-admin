@@ -17,6 +17,9 @@ function appComponents (store) {
     BlogPage: asyncComponent({
       component: () => import('containers/BlogPage')
     }),
+    EditPost: asyncComponent({
+      component: () => import('containers/EditPost')
+    }),
     NotFoundPage: asyncComponent({
       component: () => import('containers/NotFoundPage')
     })

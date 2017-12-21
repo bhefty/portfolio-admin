@@ -48,7 +48,11 @@ const RouteConfig = (props) => {
     component: userIsAuthenticated(components.DashboardPage)
   }, {
     path: '/blog',
+    exact: true,
     component: userIsAuthenticated(components.BlogPage)
+  }, {
+    path: '/blog/edit/:id',
+    component: userIsAuthenticated(components.EditPost)
   }, {
     path: '/callback',
     component: userIsAuthenticated(CallbackPage)
