@@ -10,8 +10,8 @@ const crumbTrail = [{
   page: 'Dashboard',
   link: '/dashboard'
 }, {
-  page: 'Blog Posts',
-  link: '/blog'
+  page: 'Projects',
+  link: '/projects'
 }]
 
 export default class EditProject extends Component {
@@ -21,29 +21,45 @@ export default class EditProject extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      files: []
+      heroImages: [],
+      smallImages: []
     }
 
-    this.onDrop = this.onDrop.bind(this)
-    this.onRemoveImage = this.onRemoveImage.bind(this)
+    this.onHeroDrop = this.onHeroDrop.bind(this)
+    this.onHeroRemoveImage = this.onHeroRemoveImage.bind(this)
+    this.onSmallDrop = this.onSmallDrop.bind(this)
+    this.onSmallRemoveImage = this.onSmallRemoveImage.bind(this)
     this.onCancel = this.onCancel.bind(this)
   }
 
   componentWillUnmount () {
     this.setState({
-      files: []
+      heroImages: [],
+      smallImages: []
     })
   }
 
-  onDrop (acceptedFiles, rejectedFiles) {
+  onHeroDrop (acceptedFiles, rejectedFiles) {
     this.setState({
-      files: acceptedFiles
+      heroImages: acceptedFiles
     })
   }
 
-  onRemoveImage () {
+  onHeroRemoveImage () {
     this.setState({
-      files: []
+      heroImages: []
+    })
+  }
+
+  onSmallDrop (acceptedFiles, rejectedFiles) {
+    this.setState({
+      smallImages: acceptedFiles
+    })
+  }
+
+  onSmallRemoveImage () {
+    this.setState({
+      smallImages: []
     })
   }
 
@@ -53,7 +69,7 @@ export default class EditProject extends Component {
   }
 
   render () {
-    const headerText = this.props.match.params.id === 'new' ? 'New Post' : 'Edit Post'
+    const headerText = this.props.match.params.id === 'new' ? 'New Project' : 'Edit Project'
     return (
       <div>
         <BreadCrumb
@@ -68,29 +84,46 @@ export default class EditProject extends Component {
           <form>
             <label htmlFor='title'>Title</label>
             <input type='text' name='title' />
-            <label htmlFor='body'>
-              Body
-              <span className='btn-markdown' onClick={() => console.log('TODO: IMPORT MARKDOWN FILE')}>Upload Markdown</span>
-            </label>
-            <textarea type='text' name='body' rows='10' />
+            <label htmlFor='description'>Description</label>
+            <textarea type='text' name='description' rows='3' />
+            <label htmlFor='techstack'>Tech Stack Used</label>
+            <textarea type='text' name='techstack' rows='1' />
+            <label htmlFor='link'>Project Link</label>
+            <input type='text' name='link' />
             <div>Hero Image</div>
-            {this.state.files.length === 0
+            {this.state.heroImages.length === 0
               ? <Dropzone
                 className='dropzone'
                 activeClassName='dropzone-active'
                 acceptClassName='dropzone-accept'
                 rejectClassName='dropzone-reject'
                 accept='image/jpg, image/jpeg, image/png'
-                onDrop={this.onDrop}
+                onDrop={this.onHeroDrop}
               >
                 <div>Drag and drop image</div>
               </Dropzone>
-              : <EditorImagePreview src={this.state.files[0].preview} removeImage={this.onRemoveImage} />
+              : <EditorImagePreview src={this.state.heroImages[0].preview} removeImage={this.onHeroRemoveImage} />
             }
+            <div>Small Image</div>
+            {this.state.smallImages.length === 0
+              ? <Dropzone
+                className='dropzone'
+                activeClassName='dropzone-active'
+                acceptClassName='dropzone-accept'
+                rejectClassName='dropzone-reject'
+                accept='image/jpg, image/jpeg, image/png'
+                onDrop={this.onSmallDrop}
+              >
+                <div>Drag and drop image</div>
+              </Dropzone>
+              : <EditorImagePreview src={this.state.smallImages[0].preview} removeImage={this.onSmallRemoveImage} />
+            }
+            <label htmlFor='favorite'>Favorite</label>
+            <input type='checkbox' name='favorite' />
             <button className='btn-save'>Save</button>
             <button className='btn-cancel' onClick={e => this.onCancel(e)}>Cancel</button>
-            {headerText !== 'New Post' &&
-              <div className='btn-delete' onClick={() => console.log('TODO: DELETE POST CONFIRMATION!')}>Delete Post</div>
+            {headerText !== 'New Project' &&
+              <div className='btn-delete' onClick={() => console.log('TODO: DELETE PROJECT CONFIRMATION!')}>Delete Project</div>
             }
           </form>
         </StyledEditor>
