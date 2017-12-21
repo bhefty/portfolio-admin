@@ -8,4 +8,8 @@ export default StyledEditor.extend`
     text-align: right;
     float: right;
   }
+
+  .markdown-upload {
+    display: none;
+  }
 `

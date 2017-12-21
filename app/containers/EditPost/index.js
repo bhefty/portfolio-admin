@@ -1,3 +1,5 @@
+/* global FileReader */
+
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
@@ -21,18 +23,35 @@ export default class EditPost extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      files: []
+      files: [],
+      body: ''
     }
 
+    this.handleMarkdownUpload = this.handleMarkdownUpload.bind(this)
+    this.handleBodyChange = this.handleBodyChange.bind(this)
     this.onDrop = this.onDrop.bind(this)
     this.onRemoveImage = this.onRemoveImage.bind(this)
     this.onCancel = this.onCancel.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   componentWillUnmount () {
     this.setState({
-      files: []
+      files: [],
+      body: ''
     })
+  }
+
+  handleMarkdownUpload (e) {
+    const reader = new FileReader()
+
+    reader.onload = e => this.setState({ body: reader.result })
+
+    reader.readAsText(e.target.files[0])
+  }
+
+  handleBodyChange (e) {
+    this.setState({ body: e.target.value })
   }
 
   onDrop (acceptedFiles, rejectedFiles) {
@@ -52,6 +71,11 @@ export default class EditPost extends Component {
     this.props.history.goBack()
   }
 
+  onSubmit (e) {
+    e.preventDefault()
+    console.log(e)
+  }
+
   render () {
     const headerText = this.props.match.params.id === 'new' ? 'New Post' : 'Edit Post'
     return (
@@ -65,14 +89,17 @@ export default class EditPost extends Component {
           <header>
             <div>{headerText}</div>
           </header>
-          <form>
+          <form onSubmit={this.onSubmit}>
             <label htmlFor='title'>Title</label>
             <input type='text' name='title' />
             <label htmlFor='body'>
               Body
-              <span className='btn-markdown' onClick={() => console.log('TODO: IMPORT MARKDOWN FILE')}>Upload Markdown</span>
+              <span className='btn-markdown' onClick={() => this.uploadMarkdown.click()}>Upload Markdown</span>
+              {/* eslint-disable no-return-assign */}
+              <input type='file' name='markdown' className='markdown-upload' ref={(ref) => this.uploadMarkdown = ref} onChange={this.handleMarkdownUpload} />
+              {/* eslint-enable no-return-assign */}
             </label>
-            <textarea type='text' name='body' rows='10' />
+            <textarea type='text' name='body' rows='10' value={this.state.body} onChange={e => this.handleBodyChange(e)} />
             <div>Hero Image</div>
             {this.state.files.length === 0
               ? <Dropzone
@@ -87,7 +114,7 @@ export default class EditPost extends Component {
               </Dropzone>
               : <EditorImagePreview src={this.state.files[0].preview} removeImage={this.onRemoveImage} />
             }
-            <button className='btn-save'>Save</button>
+            <button className='btn-save' onClick={e => this.onSubmit(e)}>Save</button>
             <button className='btn-cancel' onClick={e => this.onCancel(e)}>Cancel</button>
             {headerText !== 'New Post' &&
               <div className='btn-delete' onClick={() => console.log('TODO: DELETE POST CONFIRMATION!')}>Delete Post</div>
