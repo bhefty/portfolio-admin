@@ -29,11 +29,11 @@ export default class BlogPage extends Component {
         />
         <br />
         <Wrapper>
-          <AddNewButton add='Post' link='/blog' />
-          <ActionButton route='/blog' buttonType='blog' date={sampleDate1} title={sampleTitle1} />
-          <ActionButton route='/blog' buttonType='blog' date={sampleDate2} title={sampleTitle2} />
-          <ActionButton route='/blog' buttonType='blog' date={sampleDate3} title={sampleTitle3} />
-          <ActionButton route='/blog' buttonType='blog' date={sampleDate4} title={sampleTitle4} />
+          <AddNewButton add='Post' link='/blog/edit/new' />
+          <ActionButton route='/blog/edit/1' buttonType='blog' date={sampleDate1} title={sampleTitle1} />
+          <ActionButton route='/blog/edit/2' buttonType='blog' date={sampleDate2} title={sampleTitle2} />
+          <ActionButton route='/blog/edit/3' buttonType='blog' date={sampleDate3} title={sampleTitle3} />
+          <ActionButton route='/blog/edit/4' buttonType='blog' date={sampleDate4} title={sampleTitle4} />
         </Wrapper>
       </div>
     )
