@@ -59,8 +59,6 @@ router.put('/new', (req, res) => {
 
 // PUT /posts/edit/:slug to edit/update a post
 router.put('/edit/:slug', (req, res) => {
-  console.log(req.body)
-  console.log(req.params)
   const {
     title,
     body,
