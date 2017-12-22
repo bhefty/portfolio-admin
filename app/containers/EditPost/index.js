@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
+import request from 'utils/request'
 
 import BreadCrumb from 'components/BreadCrumb'
 import EditorImagePreview from 'components/EditorImagePreview'
@@ -23,11 +24,14 @@ export default class EditPost extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      files: [],
+      existingHeroImage: null,
+      heroImage: [],
+      title: '',
       body: ''
     }
 
     this.handleMarkdownUpload = this.handleMarkdownUpload.bind(this)
+    this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handleBodyChange = this.handleBodyChange.bind(this)
     this.onDrop = this.onDrop.bind(this)
     this.onRemoveImage = this.onRemoveImage.bind(this)
@@ -35,10 +39,23 @@ export default class EditPost extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
+  async componentWillMount () {
+    const id = this.props.match.params.id
+
+    if (id !== 'new') {
+      const URL = `/api/posts/${id}`
+      const data = await request(URL)
+      this.setState({
+        title: data.title,
+        body: data.body,
+        existingHeroImage: data.heroImage
+      })
+    }
+  }
+
   componentWillUnmount () {
     this.setState({
-      files: [],
-      body: ''
+      heroImage: []
     })
   }
 
@@ -50,19 +67,24 @@ export default class EditPost extends Component {
     reader.readAsText(e.target.files[0])
   }
 
+  handleTitleChange (e) {
+    this.setState({ title: e.target.value })
+  }
+
   handleBodyChange (e) {
     this.setState({ body: e.target.value })
   }
 
   onDrop (acceptedFiles, rejectedFiles) {
     this.setState({
-      files: acceptedFiles
+      heroImage: acceptedFiles
     })
   }
 
   onRemoveImage () {
     this.setState({
-      files: []
+      existingHeroImage: null,
+      heroImage: []
     })
   }
 
@@ -71,9 +93,22 @@ export default class EditPost extends Component {
     this.props.history.goBack()
   }
 
-  onSubmit (e) {
+  async onSubmit (e) {
     e.preventDefault()
-    console.log(e)
+    const requestBody = {
+      title: this.state.title,
+      body: this.state.body,
+      heroImage: this.state.existingHeroImage || 'https://billhefty.com/static/img/bill-profile-pic.jpg'
+    }
+    const requestURL = '/api/posts/new'
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(requestBody)
+    }
+
+    const response = await request(requestURL, requestOptions)
+    console.log(response)
   }
 
   render () {
@@ -91,7 +126,7 @@ export default class EditPost extends Component {
           </header>
           <form onSubmit={this.onSubmit}>
             <label htmlFor='title'>Title</label>
-            <input type='text' name='title' />
+            <input type='text' name='title' value={this.state.title} onChange={e => this.handleTitleChange(e)} />
             <label htmlFor='body'>
               Body
               <span className='btn-markdown' onClick={() => this.uploadMarkdown.click()}>Upload Markdown</span>
@@ -101,7 +136,7 @@ export default class EditPost extends Component {
             </label>
             <textarea type='text' name='body' rows='10' value={this.state.body} onChange={e => this.handleBodyChange(e)} />
             <div>Hero Image</div>
-            {this.state.files.length === 0
+            {!this.state.existingHeroImage && this.state.heroImage.length === 0
               ? <Dropzone
                 className='dropzone'
                 activeClassName='dropzone-active'
@@ -112,7 +147,9 @@ export default class EditPost extends Component {
               >
                 <div>Drag and drop image</div>
               </Dropzone>
-              : <EditorImagePreview src={this.state.files[0].preview} removeImage={this.onRemoveImage} />
+              : this.state.existingHeroImage
+              ? <EditorImagePreview src={this.state.existingHeroImage} removeImage={this.onRemoveImage} />
+              : <EditorImagePreview src={this.state.heroImage[0].preview} removeImage={this.onRemoveImage} />
             }
             <button className='btn-save' onClick={e => this.onSubmit(e)}>Save</button>
             <button className='btn-cancel' onClick={e => this.onCancel(e)}>Cancel</button>
