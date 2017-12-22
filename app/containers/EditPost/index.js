@@ -100,7 +100,9 @@ export default class EditPost extends Component {
       body: this.state.body,
       heroImage: this.state.existingHeroImage || 'https://billhefty.com/static/img/bill-profile-pic.jpg'
     }
-    const requestURL = '/api/posts/new'
+    const slug = this.props.match.params.id !== 'new' ? this.props.match.params.id : null
+    const route = !slug ? 'new' : `edit/${slug}`
+    const requestURL = `/api/posts/${route}`
     const requestOptions = {
       method: 'PUT',
       headers: { 'content-type': 'application/json' },
