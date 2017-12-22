@@ -1,17 +1,32 @@
 const express = require('express')
-// const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const logger = require('./logger')
+const mongoose = require('mongoose')
 
 const argv = require('minimist')(process.argv.slice(2))
 const setup = require('./middlewares/frontendMiddleware')
 const isDev = process.env.NODE_ENV !== 'production'
 const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false
 const resolve = require('path').resolve
+const MONGO_URI = process.env.MONGO_URI
 const app = express()
 
+// Connect to database
+const dbOptions = {
+  socketTimeoutMS: 30000,
+  keepAlive: true,
+  useMongoClient: true
+}
+mongoose.Promise = global.Promise
+
+mongoose.connect(MONGO_URI, dbOptions)
+
+// Custom API routes
+const postsApi = require('./routes/posts')
+
 // For backend API: Add custom backend-specific middelware here
-// app.use(bodyParser.json())
-// app.use('/api', myApi)
+app.use(bodyParser.json())
+app.use('/api/posts', postsApi)
 
 // In production we pass these values instead of relying on webpack
 setup(app, {
