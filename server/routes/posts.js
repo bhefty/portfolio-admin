@@ -48,15 +48,37 @@ router.put('/new', (req, res) => {
       })
 
       Post.create(addNewPost, (err) => {
-        if (err) {
-          res.send(err)
-        } else {
-          res.json({ msg: 'New post added successfully' })
-        }
+        if (err) res.send(err)
+        res.json({ msg: 'New post added successfully' })
       })
     } else {
       res.json({ msg: 'Post with this slug already exists. Try changing the title.' })
     }
+  })
+})
+
+// PUT /posts/edit/:slug to edit/update a post
+router.put('/edit/:slug', (req, res) => {
+  console.log(req.body)
+  console.log(req.params)
+  const {
+    title,
+    body,
+    heroImage
+  } = req.body
+  const slug = slugify(title)
+
+  Post.update({ slug: req.params.slug }, {
+    slug: slug,
+    title: title,
+    dateRevised: Date.now(),
+    body: body,
+    heroImage: heroImage
+  }, {
+    upsert: true, setDefaultsOnInsert: true
+  }, (err, post) => {
+    if (err) res.send(err)
+    res.json({ msg: 'Post successfully edited' })
   })
 })
 
