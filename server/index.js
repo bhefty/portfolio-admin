@@ -8,6 +8,8 @@ const setup = require('./middlewares/frontendMiddleware')
 const isDev = process.env.NODE_ENV !== 'production'
 const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false
 const resolve = require('path').resolve
+const env = process.env.NODE_ENV
+require('dotenv').config({ path: resolve(process.cwd(), `config/.env.${env}`) })
 const MONGO_URI = process.env.MONGO_URI
 const app = express()
 
