@@ -3,7 +3,8 @@
 
 const path = require('path')
 const webpack = require('webpack')
-require('dotenv').config()
+const env = process.env.NODE_ENV
+require('dotenv').config({ path: path.resolve(process.cwd(), `config/.env.${env}`) })
 
 module.exports = (options) => ({
   entry: options.entry,

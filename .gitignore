@@ -3,6 +3,7 @@ build
 node_modules
 stats.json
 .env
+config
 
 # Cruft
 .DS_Store
